@@ -9,6 +9,7 @@ use std::io::Error as IOError;
 use std::io::BufReader;
 use std::fs::File;
 
+// Gets passwords from all files listed as arguments
 fn load_passwords() -> BTreeSet<String> {
     let mut passwords = BTreeSet::new();
     for filename in env::args().skip(1) {
@@ -20,6 +21,7 @@ fn load_passwords() -> BTreeSet<String> {
     passwords
 }
 
+// Reads passwords from a file into a BTreeSet, halting on and returning any errors
 fn injest_password_file(passwords: &mut BTreeSet<String>, filename: &str) -> Result<(), IOError> {
     let file = File::open(filename)?;
     for line in BufReader::new(file).lines() {
